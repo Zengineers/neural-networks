@@ -18,8 +18,7 @@ cluster_17_members
 cluster_18_members
 cluster_19_members
 cluster_20_members
-kmeans/PointsGenerator.class
-kmeans/Point.class
+*.class
 run.sh
 examples_test
 examples.p
