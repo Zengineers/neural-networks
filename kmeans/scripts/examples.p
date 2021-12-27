@@ -1,4 +1,4 @@
-set terminal png size 800,600
+set terminal png size 900,600
 set output "plots/examples.png
 set title "Examples"
 set xlabel "x"

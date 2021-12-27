@@ -56,7 +56,6 @@ public class Experiment {
             Double min = Collections.min(clusteringErrors);
             int indexOfMin = clusteringErrors.indexOf(min);
 
-            // System.out.println("min: " + new DecimalFormat("#.###").format(min) + "\n");
             String outputFile = "plots/clusters_" + centersCounter + ".png";
             executions.get(indexOfMin).plot("scripts/plot.p", outputFile);
 

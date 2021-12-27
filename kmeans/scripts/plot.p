@@ -1,6 +1,6 @@
 set terminal png size 900,600
 set output "plots/clusters_13.png
-set title "Clusters: 13  Clustering error: 36.706"
+set title "Clusters: 13  Clustering error: 39.201"
 set key outside top
 
 plot "data/cluster_centers.dat" with points pointtype 16 linecolor -1, \
