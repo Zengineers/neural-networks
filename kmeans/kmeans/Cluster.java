@@ -2,6 +2,15 @@ package kmeans;
 
 import java.util.ArrayList;
 
+
+/*
+    Tsiouri Angeliki 3354
+    Antoniou Christodoulos 2641
+
+    This class describes a cluster of the K-Means algorithm.
+*/
+
+
 public class Cluster {
     
     private Point center;

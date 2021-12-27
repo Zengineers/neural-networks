@@ -4,6 +4,17 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+
+/*
+    Tsiouri Angeliki 3354
+    Antoniou Christodoulos 2641
+
+    This class is responsible for plotting. 
+    It writes data to .dat files, writes gnuplot scripts and runs them to plot graphs 
+    for the example points, the resulting clusters and the experiment results.
+*/
+
+
 public class Plotter {
     
     private static void exportExamplesToFile(ArrayList<Point> points) throws IOException {

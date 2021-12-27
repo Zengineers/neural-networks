@@ -2,6 +2,15 @@ package kmeans;
 
 import java.util.ArrayList;
 
+
+/*
+    Tsiouri Angeliki 3354
+    Antoniou Christodoulos 2641
+
+    This class describes a 2-dimensional point.
+*/
+
+
 public class Point {
     
     private double x;

@@ -3,6 +3,28 @@ package kmeans;
 import java.io.IOException;
 import java.util.ArrayList;
 
+
+/*
+    Tsiouri Angeliki 3354
+    Antoniou Christodoulos 2641
+
+    This class is responsible for generating random points in 2D space.
+    It exports the created points in the form of a plot and .dat file.
+
+    compile command:
+    (navigate to kmeans)
+    javac kmeans/PointsGenerator.java
+
+    run command:
+    (navigate to kmeans)
+    java kmeans/PointsGenerator
+
+    outputs:
+    "data/examples.dat": data file with randomly generated example points.
+    "plots/examples.png": plot with the randomly generated example points.
+*/
+
+
 public class PointsGenerator {
 
     private static double generateRandomValue(double min, double max) {

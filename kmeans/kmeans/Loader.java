@@ -5,6 +5,16 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
+/*
+    Tsiouri Angeliki 3354
+    Antoniou Christodoulos 2641
+
+    This class is responsible for loading data from a file. 
+    It perfoms no error-checking and assumes the data in the file are in proper format.
+*/
+
+
 public class Loader {
     
     public static ArrayList<Point> loadFile(String filename) {

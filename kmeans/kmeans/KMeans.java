@@ -5,6 +5,38 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 
+
+/*
+    Tsiouri Angeliki 3354
+    Antoniou Christodoulos 2641
+
+    This class implements the K-Means algorithm.
+    It exports the results in the form of a plot and .dat file.
+
+    compile command:
+    (navigate to kmeans)
+    javac kmeans/KMeans.java
+
+    run command:
+    (navigate to kmeans)
+    java kmeans/KMeans <number of clusters>
+
+    <number of clusters>: number of clusters the algorithm should create.
+
+    run example for 9 clusters:
+    (navigate to kmeans)
+    java kmeans/KMeans 9
+
+    outputs:
+    "plots/clusters.png": plot with the resulting clusters of the algorithm. 
+        The plot showcases the center of each cluster and the members of each cluster in different color.
+    "data/cluster_*_members.dat" where * is the number of the cluster: data files containing the 
+        members of each cluster.
+    "data/cluster_centers.dat": data file containing the centers of the different clusters.
+    "scripts/plot.p": gnuplot script which generates the clusters plot.
+*/
+
+
 public class KMeans {
     
     private ArrayList<Point> points;
