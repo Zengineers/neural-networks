@@ -7,32 +7,42 @@ import java.util.Collections;
 
 public class KMeans {
     
-    private static ArrayList<Point> points;
-    private static ArrayList<Cluster> clusters;
-    private static int centersCounter;  // M
-    private static int epochCounter;    // t
-    private static boolean centersChanged;
+    private ArrayList<Point> points;
+    private ArrayList<Cluster> clusters;
+    private int centersCounter;  // M
+    private int epochCounter;    // t
+    private boolean centersChanged;
+    private double clusteringError;
+    private String plotTitle;
 
 
-    public static void runKMeans() {
+    public KMeans(String examplesFile, int centersCounter) {
+        points = Loader.loadFile(examplesFile);
+        this.centersCounter = centersCounter;
+    }
+
+    public double getClusteringError() {
+        return clusteringError;
+    }
+
+    public void runKMeans() {
         initialize();
         while (centersChanged) {
-            System.out.print("\rRunning for epoch: " + String.valueOf(epochCounter+1) + " ...");
+            System.out.print("\rRunning for epoch: " + String.valueOf(epochCounter+1));
             clearClustersMembers();
             iteratePoints();
             updateCenters();
             checkTermination();
         }
-
     }
 
-    private static void initialize() {
+    private void initialize() {
         epochCounter = 0;
         centersChanged = true;
         createClusters();
     }
 
-    private static void createClusters() {
+    private void createClusters() {
         clusters = new ArrayList<Cluster>();
         for (int i=0; i<centersCounter; i++) {
             int randInt = generateRandomInt(0, points.size());
@@ -40,13 +50,13 @@ public class KMeans {
         }
     }
 
-    private static void clearClustersMembers() {
+    private void clearClustersMembers() {
         for (Cluster cluster : clusters) {
             cluster.clearMembers();
         }
     }
 
-    private static void iteratePoints() {
+    private void iteratePoints() {
         for (Point point : points) {
             point.clearDistances();
             calculateDistances(point);
@@ -54,7 +64,7 @@ public class KMeans {
         }
     }
 
-    private static void calculateDistances(Point point) {
+    private void calculateDistances(Point point) {
         for (Cluster cluster : clusters) {
             Point center = cluster.getCenter();
             double distance = 
@@ -63,76 +73,66 @@ public class KMeans {
             point.addDistance(distance);
         }
     }
-    
 
-    private static void updateCenters() {
+    private void updateCenters() {
         for (Cluster cluster : clusters) {
             cluster.savePreviousCenter();
             cluster.updateCenter();
         }
     }
 
-    private static void checkTermination() {
-        // System.out.println("\n============= CHECK =============");
+    private void checkTermination() {
         centersChanged = false;
         for (Cluster cluster : clusters) {
             Point previousCenter = cluster.getPreviousCenter();
             Point center = cluster.getCenter();
             if (!previousCenter.equals(center)) {
                 centersChanged = true;
-                // System.out.println("Previous center: " + previousCenter.getX() +" "+ previousCenter.getY());
-                // System.out.println("Center: " + center.getX() +" "+ center.getY());
-                // System.out.println("Centers changed? " + centersChanged);
                 break;
             }
-
         }
-        // System.out.println("================================\n");
-        // System.out.println("FINAL Centers changed? " + centersChanged);
-
         epochCounter++;
     }
 
-    private static void placePointInCluster(Point point) {
+    private void placePointInCluster(Point point) {
         Double min = Collections.min(point.getDistances());
         int indexOfMin = point.getDistances().indexOf(min);
         Cluster cluster = clusters.get(indexOfMin);
         cluster.addMember(point);
     }
 
-    private static int generateRandomInt(int min, int max) {
+    private int generateRandomInt(int min, int max) {
         return (int) (min + Math.random() * (max - min));
     }
 
-    private static double calculateClusteringError() {
-        double clusteringError = 0;
+    private void calculateClusteringError() {
+        clusteringError = 0;
         for (Cluster cluster : clusters) {
             clusteringError += cluster.calculateClusteringError();
         }
-        return clusteringError;
+        System.out.println("\rClustering Error: " + new DecimalFormat("#.###").format(clusteringError));
+    }
+    
+    private void setPlotTile() {
+        plotTitle = "Clusters: " + centersCounter + "  " +
+            "Clustering error: " + new DecimalFormat("#.###").format(clusteringError);
+    }
+    
+    public void execute() {
+        runKMeans();
+        calculateClusteringError();
+        setPlotTile();            
+    }
+
+    public void plot(String scriptFile, String outputFile) 
+        throws IOException, InterruptedException {
+            Plotter.plotClusters(clusters, scriptFile, plotTitle, outputFile);
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        points = Loader.loadFile("examples");
-        centersCounter = 5;
-        runKMeans();
-
-        // Plotter.exportClustersToFile(clusters);
-        // Plotter.generateGnuplotScript(clusters.size());
-        // Plotter.runScript("plot.p");
-        double clusteringError = calculateClusteringError();
-        String plotTitle = "Clusters: " + centersCounter + "  " +
-            "Clustering error: " + new DecimalFormat("#.###").format(clusteringError);
-        Plotter.plot(clusters, "plot.p", plotTitle);
-
-        // int total = 0;
-        // for (Cluster cluster : clusters) {
-        //     total += cluster.getMembers().size();
-        // }
-        // System.out.println("\ntotal examples: " + total);
-        System.out.println("\nClustering error: " + clusteringError);
-
-
+        KMeans kMeans = new KMeans("data/examples.dat", Integer.parseInt(args[0]));
+        kMeans.execute();
+        kMeans.plot("scripts/plot.p", "plots/clusters.png");
     }
     
 }

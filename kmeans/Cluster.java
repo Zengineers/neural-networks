@@ -55,20 +55,7 @@ public class Cluster {
             meanX = (double) sumX / (double) members.size();
             meanY = (double) sumY / (double) members.size();
         }
-        
-        // System.out.println("\nSums: " + String.valueOf(sumX) +" "+ String.valueOf(sumY));
-        // System.out.println("Sizes: " + String.valueOf(members.size()) +" "+ String.valueOf(members.size()));
-        // System.out.println("Means: " + String.valueOf(meanX) +" "+ String.valueOf(meanY));
-
         center = new Point(meanX, meanY);
-
-        // if (members.size() > 0) {
-        //     meanX = (double) sumX / (double) members.size();
-        //     meanY = (double) sumY / (double) members.size();
-
-        //     center = new Point(meanX, meanY);
-
-        // }
     }
 
     public void addMember(Point member) {

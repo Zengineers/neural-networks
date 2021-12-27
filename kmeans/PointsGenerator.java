@@ -1,6 +1,5 @@
 package kmeans;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -35,22 +34,7 @@ public class PointsGenerator {
     
     public static void main(String[] args) throws IOException, InterruptedException {
         ArrayList<Point> points = new ArrayList<Point>();
-        String examples = "";
-
         createRandomPoints(points);
-
-        for (Point point : points) {
-            examples += String.valueOf(point.getX()) + " " + String.valueOf(point.getY()) + "\n";
-        }
-        System.out.println(examples);
-
-        //File examplesFile = new File("examples");
-        FileWriter writer = new FileWriter("examples");
-        writer.write(examples);
-        writer.close();
-
-        Runtime runtime = Runtime.getRuntime();
-        Process process = runtime.exec("gnuplot examples.p");
-        process.waitFor();
+        Plotter.plotExamples(points);
     }
 }
