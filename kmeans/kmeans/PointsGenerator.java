@@ -22,6 +22,7 @@ import java.util.ArrayList;
     outputs:
     "data/examples.dat": data file with randomly generated example points.
     "plots/examples.png": plot with the randomly generated example points.
+    "scripts.p/examples.p": gnuplot script which generates the plot of the example points.
 */
 
 
