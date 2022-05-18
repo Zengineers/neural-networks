@@ -51,6 +51,7 @@ public class Cluster {
         double sumY = 0;
         double meanX;
         double meanY;
+        
         for (Point member : members) {
             sumX += member.getX();
             sumY += member.getY();
